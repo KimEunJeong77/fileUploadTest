@@ -10,7 +10,9 @@
 	<li th:each="dto:${list}">
 	<span th:text="${dto.boardIdx}"></span> 
 	&nbsp;&nbsp;&nbsp;
-	<span th:text="${dto.title}"></span>
+	<a th:href="@{/board-detail(boardIdx = ${dto.boardIdx})}">
+		<span th:text="${dto.title}"></span>
+	</a>
 	</li>
 </ul>
 

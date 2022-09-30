@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>게시글상세정보</h1>
+글제목:<span th:text="${board.title}"></span><br/>
+첨부파일정보 : <br/>
+<div th:each="item:${board.fileList}">
+파일명 : <span th:text="${item.fileName}"></span>&nbsp;&nbsp;
+파일크기 : <span th:text="${item.fileSize}"></span>
+</div>
+</body>
+</html>

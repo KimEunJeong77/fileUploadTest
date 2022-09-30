@@ -14,19 +14,27 @@ public class BoardServiceImpl implements BoardService{
 	@Autowired
 	private BoardMapper boardMapper;
 	@Override
-	public void insertBoard(BoardDTO board) throws Exception {
+	public void registerBoard(BoardDTO board) throws Exception {
 		// TODO Auto-generated method stub
 		boardMapper.insertBoard(board);// 쿼리실행뒤 boardIdx설정
 	}
 	@Override
-	public List<BoardDTO> selectBoardList() {
+	public List<BoardDTO> findBoardList() {
 		// TODO Auto-generated method stub
 		return boardMapper.selectBoardList();
 	}
 	@Override
-	public void insertBoardFileList(List<BoardFileDTO> list) throws Exception {
+	public void registerBoardFileList(List<BoardFileDTO> list) throws Exception {
 		// TODO Auto-generated method stub
 		for(BoardFileDTO boardFile:list)
 			boardMapper.insertBoardFile(boardFile);
+	}
+	@Override
+	public BoardDTO findBoardDetail(int boardIdx) {
+		// TODO Auto-generated method stub
+		BoardDTO board=boardMapper.selectBoardDetail(boardIdx);
+		List<BoardFileDTO> boardFileList=boardMapper.selectBoardFileList(boardIdx);
+		board.setFileList(boardFileList);
+		return board;
 	}
 }

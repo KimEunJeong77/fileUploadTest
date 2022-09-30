@@ -13,4 +13,6 @@ public interface BoardMapper {
 	List<BoardDTO> selectBoardList();
 	void insertBoardFile(BoardFileDTO boardFile);
 	int selectBoardIdx();
+	BoardDTO selectBoardDetail(int boardIdx);
+	List<BoardFileDTO> selectBoardFileList(int boardIdx);
 }

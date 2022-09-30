@@ -13,4 +13,8 @@
     <select id="selectBoardList" resultType="com.example.demo.dto.BoardDTO">
         SELECT * FROM t_board
     </select>
+    
+    <select id="selectBoardDetail" resultType="com.example.demo.dto.BoardDTO">
+        SELECT * FROM t_board WHERE boardIdx=#{boardIdx}
+    </select>   
 </mapper>

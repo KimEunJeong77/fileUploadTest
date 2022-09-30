@@ -5,7 +5,8 @@ import com.example.demo.dto.BoardDTO;
 import com.example.demo.dto.BoardFileDTO;
 
 public interface BoardService {
-	List<BoardDTO> selectBoardList();
-	void insertBoard( BoardDTO dto ) throws Exception ; 
-	void insertBoardFileList(List<BoardFileDTO> list) throws Exception ; 
+	List<BoardDTO> findBoardList();
+	void registerBoard( BoardDTO dto ) throws Exception ; 
+	void registerBoardFileList(List<BoardFileDTO> list) throws Exception ; 
+	BoardDTO findBoardDetail(int boardIdx);
 }

@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -32,16 +33,16 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board")
-	public ModelAndView insertBoard(
+	public ModelAndView registerBoard(
 			BoardDTO board, 
 			MultipartHttpServletRequest multipartHttpServletRequest	
 	) throws Exception {
 		log.info("========================== BoardController(/board) ==================================");
-		boardService.insertBoard(board);
+		boardService.registerBoard(board);
 		List<BoardFileDTO> list=fileUtils.parseFileInfo(
 						board.getBoardIdx(), multipartHttpServletRequest
 		);
-		if(!CollectionUtils.isEmpty(list)) boardService.insertBoardFileList(list);
+		if(!CollectionUtils.isEmpty(list)) boardService.registerBoardFileList(list);
 		return new ModelAndView("redirect:/board-list");
 	}
 	
@@ -49,8 +50,18 @@ public class BoardController {
 	public ModelAndView findBoardList() {
 		log.info("========================== BoardController(/board-list) ==================================");
 		ModelAndView mv=new ModelAndView("/boardList");
-		List<BoardDTO> list=boardService.selectBoardList();
+		List<BoardDTO> list=boardService.findBoardList();
 		mv.addObject("list", list);
 		return mv;
 	}	
+	
+	@RequestMapping("/board-detail")
+	public ModelAndView findBoardDetail(
+			@RequestParam int boardIdx) {
+		log.info("========================== BoardController(/board) ==================================");
+		ModelAndView mv=new ModelAndView("/boardDetail");
+		BoardDTO board=boardService.findBoardDetail(boardIdx);
+		mv.addObject("board", board);
+		return mv;
+	}		
 }
