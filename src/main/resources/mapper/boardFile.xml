@@ -14,4 +14,8 @@
 	<select id="selectBoardFileList" resultType="com.example.demo.dto.BoardFileDTO">
         SELECT * FROM t_file WHERE boardIdx=#{boardIdx}
     </select>
+    
+    	<select id="selectBoardFile" resultType="com.example.demo.dto.BoardFileDTO">
+        SELECT * FROM t_file WHERE idx=#{idx}
+    </select>
 </mapper>

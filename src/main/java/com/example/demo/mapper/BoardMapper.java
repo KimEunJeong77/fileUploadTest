@@ -15,4 +15,5 @@ public interface BoardMapper {
 	int selectBoardIdx();
 	BoardDTO selectBoardDetail(int boardIdx);
 	List<BoardFileDTO> selectBoardFileList(int boardIdx);
+	BoardFileDTO selectBoardFile(int idx);
 }

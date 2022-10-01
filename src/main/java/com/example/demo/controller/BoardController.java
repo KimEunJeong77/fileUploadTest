@@ -1,9 +1,16 @@
 package com.example.demo.controller;
 
+import java.io.File;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -63,5 +70,27 @@ public class BoardController {
 		BoardDTO board=boardService.findBoardDetail(boardIdx);
 		mv.addObject("board", board);
 		return mv;
+	}	
+	
+	@RequestMapping("/board/downloadBoardFile")
+	public void downloadBoardFile(
+			@RequestParam int idx, HttpServletResponse response) throws Exception {
+		log.info("========================== BoardController(/board/downloadBoardFile) ==============");
+		BoardFileDTO boardFile=boardService.findBoardFileDetail(idx);
+		log.info("파일정보:"+boardFile);
+		if(!ObjectUtils.isEmpty(boardFile)) {
+			String fileName=boardFile.getFileName();
+			byte[] file=org.apache.commons.io.FileUtils.readFileToByteArray(
+					new File(boardFile.getFilePath()));
+			response.setContentType("application/octet-stream");
+			response.setContentLength(file.length);
+			response.setHeader("Content-Disposition", "attachment; fileName=\""+
+							URLEncoder.encode(fileName,"UTF-8")+"\";");
+			response.setHeader("Content-Transfer-Encoding", "binary");
+			OutputStream out=response.getOutputStream();
+			out.write(file);
+			out.flush();
+			out.close();	
+		}
 	}		
 }

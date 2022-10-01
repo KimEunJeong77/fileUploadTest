@@ -14,10 +14,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.example.demo.dto.BoardFileDTO;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Component
-@Slf4j
 public class FileUtils {
 	public List<BoardFileDTO> parseFileInfo(
 			int boardIdx, 
@@ -34,7 +31,7 @@ public class FileUtils {
 		while(iterator.hasNext()) {
 			String name=iterator.next();
 			List<MultipartFile> list=multipartHttpServletRequest.getFiles(name);
-			log.info("name : ",name);
+			
 			for(MultipartFile multipartFile:list) {
 				if(!multipartFile.isEmpty()) {
 					contentType=multipartFile.getContentType();

@@ -9,4 +9,5 @@ public interface BoardService {
 	void registerBoard( BoardDTO dto ) throws Exception ; 
 	void registerBoardFileList(List<BoardFileDTO> list) throws Exception ; 
 	BoardDTO findBoardDetail(int boardIdx);
+	BoardFileDTO findBoardFileDetail(int idx);
 }

@@ -37,4 +37,9 @@ public class BoardServiceImpl implements BoardService{
 		board.setFileList(boardFileList);
 		return board;
 	}
+	@Override
+	public BoardFileDTO findBoardFileDetail(int idx) {
+		// TODO Auto-generated method stub
+		return boardMapper.selectBoardFile(idx);
+	}
 }

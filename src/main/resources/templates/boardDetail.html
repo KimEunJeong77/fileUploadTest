@@ -9,7 +9,10 @@
 글제목:<span th:text="${board.title}"></span><br/>
 첨부파일정보 : <br/>
 <div th:each="item:${board.fileList}">
-파일명 : <span th:text="${item.fileName}"></span>&nbsp;&nbsp;
+파일명 :
+<a th:href="@{/board/downloadBoardFile(idx=${item.idx})}" th:text="${item.fileName}"> 
+</a>
+&nbsp;&nbsp;
 파일크기 : <span th:text="${item.fileSize}"></span>
 </div>
 </body>
