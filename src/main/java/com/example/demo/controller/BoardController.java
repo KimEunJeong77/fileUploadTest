@@ -32,6 +32,12 @@ public class BoardController {
 	@Autowired
 	private FileUtils fileUtils;
 	
+	@RequestMapping("/test")
+	public String test() {
+		log.info("========================== BoardController(/test) ==================================");
+		return "test";
+	}	
+	
 	@RequestMapping("/board-form")
 	public ModelAndView main() {
 		log.info("========================== BoardController(/board-form) ==================================");
