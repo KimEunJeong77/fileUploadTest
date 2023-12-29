@@ -3,11 +3,12 @@ package com.example.demo.controller;
 import java.io.File;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -25,24 +26,20 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 public class BoardController {
 	
-	@Autowired
-	private BoardService boardService; 
-	@Autowired
-	private FileUtils fileUtils;
+
+	private final BoardService boardService;
+	private final FileUtils fileUtils;
 	
-	@RequestMapping("/test")
-	public String test() {
-		log.info("========================== BoardController(/test) ==================================");
-		return "test";
-	}	
+
 	
 	@RequestMapping("/board-form")
-	public ModelAndView main() {
+	public ModelAndView mainForm() {
 		log.info("========================== BoardController(/board-form) ==================================");
-		ModelAndView mv=new ModelAndView("/boardForm");
-		return mv;
+
+		return new ModelAndView("/boardForm");
 	}
 	
 	@RequestMapping("/board")
@@ -86,12 +83,11 @@ public class BoardController {
 		log.info("파일정보:"+boardFile);
 		if(!ObjectUtils.isEmpty(boardFile)) {
 			String fileName=boardFile.getFileName();
-			byte[] file=org.apache.commons.io.FileUtils.readFileToByteArray(
-					new File(boardFile.getFilePath()));
+			byte[] file=org.apache.commons.io.FileUtils.readFileToByteArray(new File(boardFile.getFilePath()));
 			response.setContentType("application/octet-stream");
 			response.setContentLength(file.length);
 			response.setHeader("Content-Disposition", "attachment; fileName=\""+
-							URLEncoder.encode(fileName,"UTF-8")+"\";");
+							URLEncoder.encode(fileName, StandardCharsets.UTF_8)+"\";");
 			response.setHeader("Content-Transfer-Encoding", "binary");
 			OutputStream out=response.getOutputStream();
 			out.write(file);
