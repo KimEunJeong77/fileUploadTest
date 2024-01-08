@@ -3,7 +3,7 @@
 <mapper namespace="com.example.demo.mapper.BoardMapper">
 	
     <insert id="insertBoard" parameterType="com.example.demo.dto.BoardDTO"
-    useGeneratedKeys="false" keyProperty="boardIdx">
+    useGeneratedKeys="false">
     	<selectKey keyProperty="boardIdx" resultType="int" order="BEFORE">
     		SELECT BOARDIDX.NEXTVAL FROM DUAL
     	</selectKey>

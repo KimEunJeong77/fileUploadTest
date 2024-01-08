@@ -8,6 +8,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 public class WebMvcConfiguration {
 	@Bean
 	public CommonsMultipartResolver multipartResolver() {
+		System.out.println("multipartResolver메서드실행");
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
 		multipartResolver.setDefaultEncoding("UTF-8"); 
 		multipartResolver.setMaxUploadSizePerFile(10 * 1024 * 1024); // 10mb

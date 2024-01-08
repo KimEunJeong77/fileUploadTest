@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
@@ -44,14 +45,14 @@ public class FileUtils {
 						else if(contentType.contains("image/gif"))
 							originalExtension=".gif";
 					}
-					newFileName=Long.toString(System.nanoTime())+originalExtension;
+					newFileName= UUID.randomUUID().toString()+originalExtension;
 					BoardFileDTO boardFile=new BoardFileDTO();
 					boardFile.setBoardIdx(boardIdx);
 					boardFile.setFileSize(multipartFile.getSize());
 					boardFile.setFileName(multipartFile.getOriginalFilename());
-					boardFile.setFilePath(path+"/"+newFileName);
+					boardFile.setFilePath(path+File.separator+newFileName);
 					fileList.add(boardFile);
-					file=new File(path+"/"+newFileName);
+					file=new File(path+File.separator+newFileName);
 					multipartFile.transferTo(file);
 				}
 			}
